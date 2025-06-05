@@ -79,6 +79,7 @@
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
+    background-color: #007bff;
     cursor: pointer;
     margin-bottom: 1rem;
     transition: background-color 0.3s ease;
@@ -90,7 +91,7 @@
     font-size: 1rem;
     cursor: pointer;
     margin-bottom: 1rem;
-    background-color: #007bff;
+    background-color: #4a4a4a;
     color: white;
     border: none;
     transition: background-color 0.3s ease;
@@ -125,7 +126,6 @@
     transform: translateY(10px);
     transition: opacity 1.4s ease, transform 1.4s ease;
     pointer-events: none;
-
     padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -156,6 +156,7 @@
 
 .history-table thead {
     background-color: #616161;
+    color: #d0d0d0;
     position: sticky;
     top: 0;
     z-index: 1;
