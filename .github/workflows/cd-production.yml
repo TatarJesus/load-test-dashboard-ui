@@ -72,7 +72,7 @@ jobs:
       - name: 📡 Update docker service via SSH
         run: |
           ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-          cd ~/../../mnt/containers/test-apps/api && \
+          cd ~/../../mnt/containers/test-apps/ui && \
           sudo docker compose pull && \
           sudo docker compose up -d && \
           sudo docker image prune -f
