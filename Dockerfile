@@ -29,7 +29,7 @@ WORKDIR /app
 COPY --from=builder /app/ ./
 
 # Определяем порт, который будет использоваться приложением
-EXPOSE 5173
+EXPOSE 4173
 
 # Запускаем приложение с помощью serve
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "production"]
