@@ -1,27 +1,35 @@
-FROM node:24-alpine AS builder
+# Используем официальный образ Node.js с LTS-версией
+FROM node:24-alpine as builder
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Копируем package.json и package-lock.json для установки зависимостей
+COPY package*.json ./
 
-RUN npm ci && npm cache clean --force
+# Устанавливаем зависимости
+RUN npm install
 
+# Копируем все файлы из текущего контекста в рабочую директорию
 COPY . .
 
+# Собираем Vite приложение в режиме production
 RUN npm run build
 
-FROM nginx:alpine
+# Создаем контейнер для запуска приложения
+FROM node:24-alpine
 
-ARG PORT=5173
-ENV PORT=${PORT}
+# Устанавливаем serve для статического сервера
+#RUN npm install -g serve
 
-RUN rm -rf /usr/share/nginx/html/* \
-    && mkdir -p /usr/share/nginx/html
+# Устанавливаем рабочую директорию
+WORKDIR /app
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Копируем только необходимые файлы из предыдущего контейнера
+COPY --from=builder /app/ ./
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# Определяем порт, который будет использоваться приложением
+EXPOSE 5173
 
-EXPOSE ${PORT}
-
-CMD ["nginx", "-g", "daemon off;"]
+# Запускаем приложение с помощью serve
+CMD ["npm", "run", "preview"]
